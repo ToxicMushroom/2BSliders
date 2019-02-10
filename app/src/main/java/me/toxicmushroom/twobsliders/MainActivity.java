@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
 
     //Cool variables
     private long lastExecuted = 0L;
-    private int millisDelay = 50;
+    private int millisDelay = 0;
     private boolean registeredReceiver = false;
 
 
@@ -66,9 +66,9 @@ public class MainActivity extends Activity {
         seekBarLeft.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if (bluetoothOutputStream != null && lastExecuted < System.currentTimeMillis() - millisDelay) {
+                if (bluetoothOutputStream != null && lastExecuted <= System.currentTimeMillis() - millisDelay) {
                     try {
-                        bluetoothOutputStream.write(("l" + (i - 255)).getBytes());
+                        bluetoothOutputStream.write(("<" + i + ">|").getBytes());
                         lastExecuted = System.currentTimeMillis();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -91,9 +91,9 @@ public class MainActivity extends Activity {
         seekBarRight.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if (bluetoothOutputStream != null && lastExecuted < System.currentTimeMillis() - millisDelay) {
+                if (bluetoothOutputStream != null && lastExecuted <= System.currentTimeMillis() - millisDelay) {
                     try {
-                        bluetoothOutputStream.write(("r" + (i - 255)).getBytes());
+                        bluetoothOutputStream.write(("<" + (i + 511) + ">|").getBytes());
                         lastExecuted = System.currentTimeMillis();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -121,8 +121,7 @@ public class MainActivity extends Activity {
                 textViewRight.setText("0");
                 if (bluetoothOutputStream != null) {
                     try {
-                        bluetoothOutputStream.write("l0".getBytes());
-                        bluetoothOutputStream.write("r0".getBytes());
+                        bluetoothOutputStream.write("<255>|<766>".getBytes());
                         lastExecuted = System.currentTimeMillis();
                     } catch (IOException e) {
                         e.printStackTrace();

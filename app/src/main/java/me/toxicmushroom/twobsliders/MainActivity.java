@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
 
     //Cool variables
     private long lastExecuted = 0L;
-    private int millisDelay = 45;
+    private int millisDelay = 50;
     private boolean registeredReceiver = false;
 
 
@@ -119,6 +119,15 @@ public class MainActivity extends Activity {
                 seekBarRight.setProgress(255);
                 textViewLeft.setText("0");
                 textViewRight.setText("0");
+                if (bluetoothOutputStream != null) {
+                    try {
+                        bluetoothOutputStream.write("l0".getBytes());
+                        bluetoothOutputStream.write("r0".getBytes());
+                        lastExecuted = System.currentTimeMillis();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
 

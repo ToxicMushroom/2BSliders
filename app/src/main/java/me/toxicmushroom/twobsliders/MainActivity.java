@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
 
     //Cool variables
     private long lastExecuted = 0L;
-    private int millisDelay = 0;
+    private int millisDelay = 10;
     private boolean registeredReceiver = false;
 
 
@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
         seekBarLeft.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if (bluetoothOutputStream != null && lastExecuted <= System.currentTimeMillis() - millisDelay) {
+                if (bluetoothOutputStream != null && (lastExecuted <= System.currentTimeMillis() - millisDelay || i > 490 || i < 20)) {
                     try {
                         bluetoothOutputStream.write(("<" + i + ">|").getBytes());
                         lastExecuted = System.currentTimeMillis();
@@ -91,7 +91,7 @@ public class MainActivity extends Activity {
         seekBarRight.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if (bluetoothOutputStream != null && lastExecuted <= System.currentTimeMillis() - millisDelay) {
+                if (bluetoothOutputStream != null && (lastExecuted <= System.currentTimeMillis() - millisDelay || i > 490 || i < 20) ) {
                     try {
                         bluetoothOutputStream.write(("<" + (i + 511) + ">|").getBytes());
                         lastExecuted = System.currentTimeMillis();

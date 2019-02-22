@@ -11,7 +11,7 @@
             android:background="?attr/colorPrimary"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-    />
+            app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.constraint.ConstraintLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -26,7 +26,8 @@
 
         <FrameLayout
                 android:layout_width="100dp"
-                android:layout_height="match_parent" android:id="@+id/barWrapper1">
+                android:layout_height="match_parent" android:id="@+id/barWrapper1"
+                app:layout_constraintStart_toStartOf="parent">
             <SeekBar
                     android:layout_width="350dp"
                     android:layout_height="wrap_content"
